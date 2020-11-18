@@ -1,11 +1,11 @@
 /* globals fetch */
 
 import 'tachyons'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 // Import Components Below
 import TriviaQuestions from './components/TriviaQuestions'
 
-const App = () => {
+function App() {
   const [triviaCat, setTriviaCat] = useState([])
   const [selectedCategory, setSelectedCategory] = useState(null)
 
@@ -26,11 +26,22 @@ const App = () => {
   }
 
   return (
-    <div>
-      {triviaCat.map((categories) => (
-        <button key={categories.id} onClick={() => setTriviaCat(categories)}>{categories.name}</button>
-      ))}
-    </div>
+    <Fragment>
+      <div >
+        <h2>Trivia</h2>
+        <ul className='list'>
+          {triviaCat.map((categories) => (
+            <li key={categories.id}>
+              <button
+                onClick={() => setSelectedCategory(categories)}
+              >
+                {categories.name}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div >
+    </Fragment>
   )
 }
 
