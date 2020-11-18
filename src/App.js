@@ -1,24 +1,35 @@
 /* globals fetch */
 
 import 'tachyons'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+// Import Components Below
+import TriviaQuestions from './components/TriviaQuestions'
 
-function App() {
+const App = () => {
   const [triviaCat, setTriviaCat] = useState([])
+  const [selectedCategory, setSelectedCategory] = useState(null)
 
   useEffect(() => {
     fetch('https://opentdb.com/api_category.php')
-      .then(response => response.json())
-      .then(data => setTriviaCat(data.trivia_categories))
+      .then((response) => response.json())
+      .then((data) =>
+        setTriviaCat(data.trivia_categories))
   }, [])
 
+  if (selectedCategory) {
+    return (
+      <TriviaQuestions
+        category={selectedCategory}
+        clearSelectedCategory={() => setSelectedCategory(null)}
+      />
+    )
+  }
+
   return (
-    <div classname trivia>
-      <ul>
-        {triviaCat.map((name) => (
-          <li key={name.name}>{name.name}</li>
-        ))}
-      </ul>
+    <div>
+      {triviaCat.map((categories) => (
+        <button key={categories.id} onClick={() => setTriviaCat(categories)}>{categories.name}</button>
+      ))}
     </div>
   )
 }
