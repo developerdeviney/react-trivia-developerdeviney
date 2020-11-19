@@ -30,12 +30,12 @@ function App() {
       <div >
         <h2>Trivia</h2>
         <ul className='list'>
-          {triviaCat.map((categories) => (
-            <li key={categories.id}>
+          {triviaCat.map((category) => (
+            <li key={category.id}>
               <button
-                onClick={() => setSelectedCategory(categories)}
+                onClick={() => setSelectedCategory(category)}
               >
-                {categories.name}
+                {category.name}
               </button>
             </li>
           ))}
