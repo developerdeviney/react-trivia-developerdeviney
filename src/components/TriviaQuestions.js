@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
-//import Question from Question
+import Question from './Question'
+
 export default function TriviaQuestions(props) {
     const { category, clearSelectedCategory } = props
     const [questions, setQuestions] = useState([])
 
+
     useEffect(() => {
-        fetch(`https://opentdb.com/api.php?amount=10&category=${category.id}&token=2fbcda84c0b0d24686725d8148d9a8736b80ec2c0f8a4da12b1f0cd9e05b9e9d`)
+        fetch(`https://opentdb.com/api.php?amount=10&category=${category.id}&token=d33784c6b9f69dd6dddd2683eaa4853c4c9ac748c602d871009f375cf98adf13`)
             .then(response => response.json())
             .then(data => {
+                console.log(data);
                 setQuestions((data.results))
             })
     }, [category])
-
 
     return (
         <div>
@@ -20,13 +22,8 @@ export default function TriviaQuestions(props) {
                 Go back to all Categories
             </button>
             <ul>
-                {questions.map((name) => (
-                    <li key={[name.id]}>
-                        <div>Question: {name.question}</div>
-                        <div>Correct Answers: {name.correct_answer}</div>
-                        <div>Incorrect Answers: {name.incorrect_answers}</div>
-
-                    </li>
+                {questions.map((question, index) => (
+                    <Question question={question} questionNum={index} key={index} />
                 ))}
             </ul>
         </div >
